@@ -4,6 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Search, Loader2 } from "lucide-react";
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
 export default function ProductImporter() {
   const [url, setUrl] = useState("");
 
@@ -18,7 +20,7 @@ export default function ProductImporter() {
       setIsLoading(true);
 
       const response = await axios.post(
-        "https://amazon-product-scrapper.vercel.app/scrape-product",
+        `${API_URL}/scrape-product`,
         { url },
         {
           headers: {
