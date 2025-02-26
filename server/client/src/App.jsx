@@ -123,7 +123,7 @@ export default function ProductImporter() {
                 {product.price && (
                   <span className="bg-gray-200 text-gray-700 text-lg font-medium py-1 px-3 rounded-full">
                     {/* Styled badge */}
-                    {product.price}
+                    {product.price.split("$")[1]}$
                   </span>
                 )}
               </div>
