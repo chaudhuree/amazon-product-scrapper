@@ -8,6 +8,15 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: ['http://localhost:5173', 'https://amazon-product-scrapper.vercel.app','http://localhost:4000'] }));
 
+// Add security headers middleware
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' data: https:;"
+  );
+  next();
+});
+
 // Endpoint to scrape product data from a URL
 app.post('/scrape-product', async (req, res) => {
   const { url } = req.body;
@@ -92,7 +101,10 @@ app.post('/scrape-product', async (req, res) => {
 
 
 // Serve static files from the Vite build directory
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.static(path.join(__dirname, 'client/dist'), {
+  maxAge: '1y',
+  etag: false
+}));
 
 // Handle all other routes by serving the index.html
 app.get('*', (req, res) => {
