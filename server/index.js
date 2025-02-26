@@ -2,10 +2,11 @@ const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: ['http://localhost:5173'] }));  // Replace with your frontend URL
+app.use(cors({ origin: ['http://localhost:5173', 'https://amazon-product-scrapper.vercel.app','http://localhost:4000'] }));
 
 // Endpoint to scrape product data from a URL
 app.post('/scrape-product', async (req, res) => {
@@ -89,13 +90,17 @@ app.post('/scrape-product', async (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
-  res.send('Server is running');
+
+// Serve static files from the Vite build directory
+app.use(express.static(path.join(__dirname, 'client/dist')));
+
+// Handle all other routes by serving the index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
+
 // Start the Express server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
-
-
