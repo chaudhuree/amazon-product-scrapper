@@ -6,7 +6,7 @@ const path = require('path');
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: ['http://localhost:5173', 'https://amazon-product-scrapper.vercel.app','http://localhost:4000'] }));
+app.use(cors({ origin: ['http://localhost:5173', 'https://amazon-product-scapper-ui.vercel.app','http://localhost:4000'] }));
 
 // Add security headers middleware
 app.use((req, res, next) => {
