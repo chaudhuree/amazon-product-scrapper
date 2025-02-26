@@ -89,6 +89,9 @@ app.post('/scrape-product', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
 // Start the Express server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
