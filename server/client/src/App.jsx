@@ -18,7 +18,7 @@ export default function ProductImporter() {
       setIsLoading(true);
 
       const response = await axios.post(
-        "http://localhost:4000/scrape-product",
+        "https://amazon-product-scrapper.vercel.app/scrape-product",
         { url },
         {
           headers: {
